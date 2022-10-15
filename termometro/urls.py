@@ -14,15 +14,17 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path, include
+from django.urls import include, path
 from rest_framework import routers
-from termometromarcas.views import * 
+from termometromarcas.views import PesquisaViewSet, TweetViewSet
 
 route = routers.DefaultRouter()
 
-route.register(r'pesquisa/', PesquisaViewSet, basename='Pesquisa')
+route.register('pesquisa', PesquisaViewSet, basename='Pesquisa')
+route.register('tweet', TweetViewSet, basename='Tweet')
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include(route.urls))
+    path('', include(route.urls)),
 ]

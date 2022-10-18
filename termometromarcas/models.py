@@ -17,7 +17,40 @@ class Tweet(models.Model):
 
 
 class Pesquisa(models.Model):
-    data = models.DateField('Data', null=False, blank=False)
+    data = models.DateTimeField('Data', null=False, blank=False)
     quantidade = models.IntegerField('Quantidade', null=False, blank=False)
     termo = models.CharField('Pesquisa', max_length=30, null=False, blank=False)
     tweet = models.ManyToManyField(Tweet, null=False, blank=False)
+
+
+# class Filtro(models.Model):
+#     nome = models.CharField('Nome', max_length=20, null=False, blank=False)
+
+#     class Meta: 
+#         abstract = False
+
+
+class Tempo(models.Model):
+    # objects = Filtro()
+    dataInicial = models.DateField('Data Inicial', null=False, blank=False)
+    dataFinal = models.DateField('Data Final', null=False, blank=False)
+
+
+class Geografico(models.Model):
+    # objects = Filtro()
+    tipo = models.CharField('Tipo', max_length=30, null=False, blank=False)
+    valor = models.CharField('Valor', max_length=30, null=False, blank=False)
+
+
+class Usuario(models.Model):
+    usuario = models.CharField('Usuario', max_length=30, null=False, blank=False)
+    email = models.CharField('Email', max_length=50, null=False, blank=False)
+    senha = models.CharField('Senha', max_length=30, null=False, blank=False)
+
+    
+class Fisico(models.Model):
+    cpf = models.IntegerField('CPF', null=False, blank=False)
+
+
+class Juridico(models.Model):
+    cnpj = models.BigIntegerField('CPNJ', null=False, blank=False)

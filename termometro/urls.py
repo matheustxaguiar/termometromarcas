@@ -16,12 +16,18 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import include, path
 from rest_framework import routers
-from termometromarcas.views import PesquisaViewSet, TweetViewSet
+from termometromarcas.views import *
 
 route = routers.DefaultRouter()
 
 route.register('pesquisa', PesquisaViewSet, basename='Pesquisa')
 route.register('tweet', TweetViewSet, basename='Tweet')
+route.register('usuario', UsuarioViewSet, basename='Usuario')
+route.register('geografico', GeograficoViewSet, basename='Geografico')
+route.register('tempo', TempoViewSet, basename='Tempo')
+route.register('fisico', FisicoViewSet, basename='Fisico')
+route.register('juridico', JuridicoViewSet, basename='Juridico')
+# route.register('filtro', FiltroViewSet, basename='Juridico')
 
 
 urlpatterns = [

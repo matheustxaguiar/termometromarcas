@@ -16,16 +16,9 @@ class Tweet(models.Model):
     subjetividade = models.IntegerField('Subjetividade', null=False, blank=False)
 
 
-class Pesquisa(models.Model):
-    data = models.DateTimeField('Data', null=False, blank=False)
-    quantidade = models.IntegerField('Quantidade', null=False, blank=False)
-    termo = models.CharField('Pesquisa', max_length=30, null=False, blank=False)
-    tweet = models.ManyToManyField(Tweet, null=False, blank=False)
-
-
 class Filtro(models.Model):
     def __str__(self):
-        return self.nome
+        return 'filtro'
 
 class Tempo(Filtro):
     dataInicial = models.DateField('Data Inicial', null=False, blank=False)
@@ -41,11 +34,23 @@ class Geografico(Filtro):
     def __str__(self):
         return self.tipo
 
+    
+class Pesquisa(models.Model):
+    data = models.DateField('Data', null=False, blank=False)
+    quantidade = models.IntegerField('Quantidade', null=False, blank=False)
+    termo = models.CharField('Pesquisa', max_length=30, null=False, blank=False)
+    tweet = models.ManyToManyField(Tweet)
+    filtro = models.ManyToManyField(Filtro)
+
+    def __str__(self):
+        return self.termo
+
 
 class Usuario(models.Model):
     usuario = models.CharField('Usuario', max_length=30, null=False, blank=False)
     email = models.CharField('Email', max_length=50, null=False, blank=False)
     senha = models.CharField('Senha', max_length=30, null=False, blank=False)
+    pesquisas = models.ManyToManyField(Pesquisa, null=True)
 
     def __str__(self):
         return self.usuario

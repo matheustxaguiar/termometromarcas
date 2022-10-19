@@ -23,12 +23,6 @@ class UsuarioSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
-# class FiltroSerializer(serializers.ModelSerializer):
-#     class Meta:
-#         model = Filtro
-#         fields = '__all__'
-
-
 class TempoSerializer(serializers.ModelSerializer):
     class Meta:
         model = Tempo

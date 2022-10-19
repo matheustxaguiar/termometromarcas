@@ -39,8 +39,3 @@ class FisicoViewSet(viewsets.ModelViewSet):
 class JuridicoViewSet(viewsets.ModelViewSet):
     serializer_class = JuridicoSerializer
     queryset = Juridico.objects.all()
-
-
-# class FiltroViewSet(viewsets.ModelViewSet):
-#     serializer_class = FiltroSerializer
-#     queryset = Filtro.objects.all()

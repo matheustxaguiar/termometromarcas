@@ -27,7 +27,6 @@ route.register('geografico', GeograficoViewSet, basename='Geografico')
 route.register('tempo', TempoViewSet, basename='Tempo')
 route.register('fisico', FisicoViewSet, basename='Fisico')
 route.register('juridico', JuridicoViewSet, basename='Juridico')
-# route.register('filtro', FiltroViewSet, basename='Juridico')
 
 
 urlpatterns = [

@@ -23,23 +23,23 @@ class Pesquisa(models.Model):
     tweet = models.ManyToManyField(Tweet, null=False, blank=False)
 
 
-# class Filtro(models.Model):
-#     nome = models.CharField('Nome', max_length=20, null=False, blank=False)
+class Filtro(models.Model):
+    def __str__(self):
+        return self.nome
 
-#     class Meta: 
-#         abstract = False
-
-
-class Tempo(models.Model):
-    # objects = Filtro()
+class Tempo(Filtro):
     dataInicial = models.DateField('Data Inicial', null=False, blank=False)
     dataFinal = models.DateField('Data Final', null=False, blank=False)
 
+    def __str__(self):
+        return self.dataInicial
 
-class Geografico(models.Model):
-    # objects = Filtro()
+class Geografico(Filtro):
     tipo = models.CharField('Tipo', max_length=30, null=False, blank=False)
     valor = models.CharField('Valor', max_length=30, null=False, blank=False)
+
+    def __str__(self):
+        return self.tipo
 
 
 class Usuario(models.Model):
@@ -47,10 +47,13 @@ class Usuario(models.Model):
     email = models.CharField('Email', max_length=50, null=False, blank=False)
     senha = models.CharField('Senha', max_length=30, null=False, blank=False)
 
+    def __str__(self):
+        return self.usuario
+
     
-class Fisico(models.Model):
+class Fisico(Usuario):
     cpf = models.IntegerField('CPF', null=False, blank=False)
 
 
-class Juridico(models.Model):
+class Juridico(Usuario):
     cnpj = models.BigIntegerField('CPNJ', null=False, blank=False)

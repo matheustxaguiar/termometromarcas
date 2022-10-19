@@ -66,7 +66,7 @@ class TweetJsonInvalid(APITestCase):
         assert len(tweet) == 0
 
 class GetSingleTweet(APITestCase):  
-    def test_get_single_tweet(self):
+    def test_get_single_user(self):
         self.valid_payload = {
             "conteudo": "Eu adoro futebol!",
             "data": '2022-10-10',

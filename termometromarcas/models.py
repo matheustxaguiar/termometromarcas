@@ -1,4 +1,5 @@
 from dataclasses import dataclass
+from random import choices
 from unittest.util import _MAX_LENGTH
 
 from django.db import models
@@ -6,6 +7,11 @@ from django.db.models.signals import pre_save
 from django.dispatch import receiver
 
 status_usuario = [("pending", "Pending"), ("approved", "Approved")]
+
+from django.db.models.signals import pre_save
+from django.dispatch import receiver
+
+status_usuario = [("ativo", "Ativo"), ("desativado", "Desativado")]
 
 
 # Create your models here.
@@ -56,31 +62,42 @@ class Usuario(models.Model):
     email = models.CharField('Email', max_length=50, null=False, blank=False)
     senha = models.CharField('Senha', max_length=30, null=False, blank=False)
     pesquisas = models.ManyToManyField(Pesquisa, blank=True)
-    status = models.CharField(max_length=250, choices=status_usuario, default="pending")
 
     def __str__(self):
         return self.usuario
 
-@receiver(pre_save, sender=Usuario)
-def print_email(sender, instance, **kwargs):
-    print(sender.objects.get(id=instance.id).status)
-    print(instance.status)
-
 
 class Fisico(Usuario):
     cpf = models.IntegerField('CPF', null=False, blank=False)
+    status = models.CharField(max_length=255, choices=status_usuario, default="ativo")
+    observadores = []
 
     def __str__(self):
         return self.cpf
+    
+    def adicionarObservador(self, observador):
+        self.observadores.append(observador)
 
-# @receiver(pre_save, sender=Fisico)
-# def print_email(sender, instance, **kwargs):
-#     print(sender.objects.get(id=instance.id).status)
-#     print(instance.status)
 
+# class Observador():
+#     def update()
+
+class UsuarioObserver():
+    def update(self, instancia):
+        print("teste")
+        if instancia.status=='desativado':
+            print("usuario desativado")
+
+            
+@receiver(pre_save, sender=Fisico)
+def notifyObservers(sender, instance, **kwargs):
+    listaObservadores=[]
+    ob1 = UsuarioObserver()
+    listaObservadores.append(ob1)
+    for item in listaObservadores:
+        item.update(instance)
+    
 
 class Juridico(Usuario):
     cnpj = models.BigIntegerField('CPNJ', null=False, blank=False)
 
-    def __str__(self):
-        return self.cnpj

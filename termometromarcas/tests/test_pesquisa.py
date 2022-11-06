@@ -1,9 +1,13 @@
 import json
 from unittest import skip
 from urllib import response
-from termometromarcas.models import Tweet, Pesquisa, Filtro
+
 from rest_framework import status
 from rest_framework.test import APIClient, APITestCase
+
+from termometromarcas.models.Filtro import Filtro
+from termometromarcas.models.Pesquisa import Pesquisa
+from termometromarcas.models.Tweet import Tweet
 
 client = APIClient()
 

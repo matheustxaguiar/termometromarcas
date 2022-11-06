@@ -1,9 +1,10 @@
 import json
 from unittest import skip
-from termometromarcas.models import Tweet
+
 from rest_framework import status
 from rest_framework.test import APIClient, APITestCase
 
+from termometromarcas.models.Tweet import Tweet
 
 client = APIClient()
 

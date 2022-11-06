@@ -1,9 +1,12 @@
 import json
 from unittest import skip
-from termometromarcas.models import Usuario, Fisico, Juridico
+
 from rest_framework import status
 from rest_framework.test import APIClient, APITestCase
 
+from termometromarcas.models.Usuario import Usuario
+from termometromarcas.models.UsuarioFisico import UsuarioFisico
+from termometromarcas.models.UsuarioJuridico import UsuarioJuridico
 
 client = APIClient()
 
@@ -12,18 +15,18 @@ class UsuarioTest(APITestCase):
 
     def setUp(self):
         
-        Fisico.objects.create(
+        UsuarioFisico.objects.create(
         usuario='Fulano', email='fulaninhoplays@gmail.com', senha='ihhhuuuul', pesquisas=[], cpf='15478842155'
             ) 
-        Juridico.objects.create(
+        UsuarioJuridico.objects.create(
         usuario='Metais', email='metais@gmail.com', senha='ihhhuuuul', pesquisas=[], cnpj='71885582000189'
             ) 
 
     def usuario(self):
-        fisico1 = Fisico.objects.get(usuario='Fulano')
+        fisico1 = UsuarioFisico.objects.get(usuario='Fulano')
         self.assertEqual(
             fisico1.usuario(), "Fulano")
-        juridico1 = Juridico.objects.get(usuario='Fulano')
+        juridico1 = UsuarioJuridico.objects.get(usuario='Fulano')
         self.assertEqual(
             juridico1.usuario(), "Metais")
 
@@ -31,7 +34,7 @@ class UsuarioAddTest(APITestCase):
     """ Test module for add Tweet using API"""
     def usuario_add_tweet(self):
         #Teste Físico
-        fisico = Fisico.objects.all()
+        fisico = UsuarioFisico.objects.all()
         
         assert len(fisico) == 0
         
@@ -48,12 +51,12 @@ class UsuarioAddTest(APITestCase):
         
         assert response.data["usuario"] == "Fulano"
 
-        fisico = Fisico.objects.all()
+        fisico = UsuarioFisico.objects.all()
 
         assert len(fisico) == 1
         
         #Teste Juridico
-        juridico = Juridico.objects.all()
+        juridico = UsuarioJuridico.objects.all()
         
         assert len(juridico) == 0
         
@@ -70,7 +73,7 @@ class UsuarioAddTest(APITestCase):
         
         assert response.data["usuario"] == "Fulano"
 
-        fisico = Juridico.objects.all()
+        fisico = UsuarioJuridico.objects.all()
 
         assert len(fisico) == 1
         
@@ -79,26 +82,26 @@ class UsuarioJsonInvalid(APITestCase):
     def test_add_fisico_invalid_json(self):
 
         # RETORNA UMA QUERYSET NAO UM .JSON
-        fisico = Fisico.objects.all()
+        fisico = UsuarioFisico.objects.all()
         assert len(fisico) == 0
 
         # para realizar um post invalido foi necessário enviar um vazio
         response = client.post("/fisico/", data=json.dumps({}), content_type="application/json")
         assert response.status_code == status.HTTP_400_BAD_REQUEST
 
-        tweet = Fisico.objects.all()
+        tweet = UsuarioFisico.objects.all()
         assert len(fisico) == 0
     def test_add_juridico_invalid_json(self):
 
         # RETORNA UMA QUERYSET NAO UM .JSON
-        juridico = Juridico.objects.all()
+        juridico = UsuarioJuridico.objects.all()
         assert len(juridico) == 0
 
         # para realizar um post invalido foi necessário enviar um vazio
         response = client.post("/juridico/", data=json.dumps({}), content_type="application/json")
         assert response.status_code == status.HTTP_400_BAD_REQUEST
 
-        juridico = Juridico.objects.all()
+        juridico = UsuarioJuridico.objects.all()
         assert len(juridico) == 0
         
 @skip       

@@ -16,7 +16,10 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import include, path
 from rest_framework import routers
-from termometromarcas.views import *
+
+from termometromarcas.views import (FisicoViewSet, GeograficoViewSet,
+                                    JuridicoViewSet, PesquisaViewSet,
+                                    TempoViewSet, TweetViewSet, UsuarioViewSet)
 
 route = routers.DefaultRouter()
 

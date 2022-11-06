@@ -3,8 +3,10 @@ from dataclasses import fields
 from pyexpat import model
 from rest_framework import serializers
 
+from termometromarcas.Builder import Director
 from termometromarcas.models import (FiltroGeografico, FiltroTempo, Pesquisa,
-                                     Tweet, Usuario, UsuarioJuridico)
+                                     Tweet, UsuarioJuridico)
+from termometromarcas.models.Usuario import Usuario
 from termometromarcas.models.UsuarioFisico import UsuarioFisico
 
 
@@ -21,9 +23,13 @@ class TweetSerializer(serializers.ModelSerializer):
 
 class UsuarioSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Usuario.Usuario
+        model = Usuario
         fields = '__all__'
 
+    def create(self, validated_data):
+        instance = super().create(validated_data)
+        Director.construct(instance)
+        return instance
 
 class TempoSerializer(serializers.ModelSerializer):
     class Meta:

@@ -11,3 +11,6 @@ class Usuario(models.Model):
 
     def __str__(self):
         return self.email
+    
+    def setPesquisas(self, pesquisas):
+        self.pesquisas = pesquisas

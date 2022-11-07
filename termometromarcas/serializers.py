@@ -27,8 +27,10 @@ class UsuarioSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
     def create(self, validated_data):
+        # Objeto criado em memória
+        usuario = Usuario(usuario = validated_data['usuario'], email = validated_data['email'], senha = validated_data['senha'])
+        Director.construct(usuario)
         instance = super().create(validated_data)
-        Director.construct(instance)
         return instance
 
 class TempoSerializer(serializers.ModelSerializer):
